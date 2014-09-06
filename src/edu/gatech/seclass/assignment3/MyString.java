@@ -2,7 +2,7 @@ package edu.gatech.seclass.assignment3;
 
 public class MyString implements MyStringInterface{
 	
-	private String current= "";
+	private String current= "What would you like this String to be?";
 	
 	// Sets the value of the current string.
     public void setString(String str){
@@ -18,7 +18,22 @@ public class MyString implements MyStringInterface{
     // Only letters a, e, i, o, and u (both lower and upper case) are considered vowels.
     // The returned string contains each occurrence of a vowel in the current string.
     public String getVowels(){
-    	return current;
+    	String vowels = current;
+		int i =0;
+		char testchar = 'c';
+		while (i < vowels.length()){
+				testchar = vowels.charAt(i);
+				if (testchar != 'A' && testchar != 'a' && 
+				testchar != 'E' && testchar != 'e' &&
+				testchar != 'I' && testchar != 'i' &&
+				testchar != 'O' && testchar != 'o' &&
+				testchar != 'U' && testchar != 'u'){
+					String testchar2 = String.valueOf(testchar);
+					vowels=vowels.replace(testchar2, "");
+				}
+				else {i++;}
+	}
+		return vowels;
     }
 
     // Returns a string that consists of the substring between start and end indexes (both included) in the current string.
