@@ -33,28 +33,46 @@ public class MyString implements MyStringInterface{
 				}
 				else {i++;}
 	}
-		return vowels;
+		if (vowels.length()==0){
+			throw new RuntimeException("String contains no vowels.");
+		}
+		else {return vowels;}
     }
 
     // Returns a string that consists of the substring between start and end indexes (both included) in the current string.
     // Index 1 corresponds to the first character in the current string.
     public String getSubstring(int start, int end){
-    	return current.substring(start -1, end +1);
+    	if (current.length() ==0){
+    		throw new RuntimeException("Cannot make a substring from an empty string");
+    	}
+    	else {return current.substring(start -1, end +1);}
     }
 
     // Returns the index of the first occurrence of a character in the current string.
     // Index 1 corresponds to the first character in the current string.    
     public int indexOf(char c){
-    	return (current.indexOf(c)+1);
-    }
+    	String testchar = String.valueOf(c);
+    	if (!current.contains(testchar)){
+    		throw new IllegalArgumentException("This character is not in this string");
+    	}
+    	else {return (current.indexOf(c)+1);}			
+  }
     // Removes all occurrences of the specified character from the current string.
     public void removeChar(char c){
-    	current = current.replace("c","");
+    	String testchara = String.valueOf(c);
+    	if (current.toUpperCase().contains(testchara) || 
+    		current.toLowerCase().contains(testchara)){
+    		current = current.replace(testchara.toLowerCase(),"");
+    		current = current.replace(testchara.toUpperCase(), "");
+    	}
+    	else {
+    		throw new IllegalArgumentException("This character is not in the String.");
+    	}
     }
 
     // Invert the current string.
     public void invert(){   
     	StringBuilder build = new StringBuilder(current);
-    	build.reverse();
+    	current =new String(build.reverse());
     }
 }
