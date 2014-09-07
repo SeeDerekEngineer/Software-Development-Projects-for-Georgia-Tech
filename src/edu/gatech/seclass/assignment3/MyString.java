@@ -2,7 +2,7 @@ package edu.gatech.seclass.assignment3;
 
 public class MyString implements MyStringInterface{
 	
-	private String current= "What would you like this String to be?";
+	private String current= "";
 	
 	// Sets the value of the current string.
     public void setString(String str){
@@ -39,13 +39,13 @@ public class MyString implements MyStringInterface{
     // Returns a string that consists of the substring between start and end indexes (both included) in the current string.
     // Index 1 corresponds to the first character in the current string.
     public String getSubstring(int start, int end){
-    	return current.substring(start -1,end -1);
+    	return current.substring(start -1, end +1);
     }
 
     // Returns the index of the first occurrence of a character in the current string.
     // Index 1 corresponds to the first character in the current string.    
     public int indexOf(char c){
-    	return current.indexOf(c);
+    	return (current.indexOf(c)+1);
     }
     // Removes all occurrences of the specified character from the current string.
     public void removeChar(char c){
