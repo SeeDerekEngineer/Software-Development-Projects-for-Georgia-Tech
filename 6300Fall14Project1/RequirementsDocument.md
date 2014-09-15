@@ -39,7 +39,7 @@ Typical user will be of university level (undergraduate to graduate).  The degre
       Software must compile in the command line using the 'javac' command without any additional options.  All code not part of       the JDK must be included in the source code with the program.  Program must be an application and must be executable            from the command line using the 'java' command.
 
     2.2.3 Software must throw exceptions with novice-friendly prompts
-      Software must be designed to give prompts fit for users of low technical experience to understand why program is failing        to run.  Specifically, software must return error message with possible remedies if the user fails to properly                  input the file path, delimiters, and/or word limit into the command line.
+      Software must be designed to give prompts fit for users of low technical experience to understand why program is failing        to run.  Specifically, software must return error message with possible remedies if the user fails to properly                  input the file path to their essay, delimiters, and/or word limit into the command line, or if they provide the file path       to a non-plain text file.
     
     2.2.4 Software must include novice-friendly user documentation
       Software must include documentation that provides users with easy to follow instructions for those of limited technical         experience.  Specifically, how to input the correct file path so the application can reach the student's essay, and how to       input sentence delimiters and lower word limits.
