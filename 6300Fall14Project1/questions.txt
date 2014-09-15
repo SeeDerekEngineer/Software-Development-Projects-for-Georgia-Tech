@@ -1,2 +1,2 @@
-1.  XXXXXXXXXXXXXXX
-2.  XXXXXXXXXXXXXXX
+1.  Do you consider files from programs like Microsoft Word as "raw text files" or just files like those found in notepad?
+2.  Will students be submitting a title page with their essays that includes things like their name, the date, the title, etc.?
