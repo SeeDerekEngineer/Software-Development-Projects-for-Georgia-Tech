@@ -1,0 +1,4 @@
+1.  Do you consider files from programs like Microsoft Word as "raw text files" or just files like those found in notepad?
+We would consider all kinds of files as .txt files
+2.  Will students be submitting a title page with their essays that includes things like their name, the date, the title, etc.?
+The students could submit anything. We would like you to process them anyway.
