@@ -14,11 +14,13 @@ public class AreaActivity extends Activity {
 	}
 	public String metToFt(double yourArea){
 		double feet = yourArea/10.7639;
-		return String.valueOf(feet);
+		double feetr = Math.round(feet * 100.0) / 100.0;
+		return String.valueOf(feetr);
 	}
 	
 	public String ftToMet(double yourArea){
 		double meters = yourArea*10.7639;
-		return String.valueOf(meters);
+		double metersr = Math.round(meters * 100.0) / 100.0;
+		return String.valueOf(metersr);
 	}
 }

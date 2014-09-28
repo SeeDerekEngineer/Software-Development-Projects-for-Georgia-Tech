@@ -14,11 +14,13 @@ public class CurrencyActivity extends Activity {
 	}
 	public String euroToDollar(double yourCurrency){
 		double dollar = yourCurrency*0.78842;
-		return String.valueOf(dollar);
+		double dollarr = Math.round(dollar * 100.0) / 100.0;
+		return String.valueOf(dollarr);
 	}
 	
 	public String dollarToEuro(double yourCurrency){
 		double euro = yourCurrency/0.78842;
-		return String.valueOf(euro);
+		double euror = Math.round(euro * 100.0) / 100.0;
+		return String.valueOf(euror);
 	}
 }

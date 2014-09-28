@@ -14,12 +14,14 @@ public class DistanceActivity extends Activity {
 	}
 	public String kmToMiles(double yourDistance){
 		double miles = yourDistance/1.609;
-		return String.valueOf(miles);
+		double milesr = Math.round(miles * 100.0) / 100.0;
+		return String.valueOf(milesr);
 	}
 	
 	public String milesToKm(double yourDistance){
 		double kilom = yourDistance*1.609;
-		return String.valueOf(kilom);
+		double kilomr = Math.round(kilom * 100.0) / 100.0;
+		return String.valueOf(kilomr);
 	}
 	
 }
