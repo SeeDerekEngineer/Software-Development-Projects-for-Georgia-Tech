@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="${relativePackage}.${activityClass}" >
+    tools:context=".MainActivity" >
 
     <TextView
         android:id="@+id/text1"
@@ -21,7 +21,8 @@
         android:layout_alignLeft="@+id/text1"
         android:layout_below="@+id/text1"
         android:ems="10"
-        android:inputType="numberDecimal" >
+        android:inputType="numberDecimal"
+        android:text="0.0" >
        
         <requestFocus />
     </EditText>
@@ -66,7 +67,8 @@
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:text="0.0" />
 
     <RadioGroup
         android:id="@+id/radioGroup2"
@@ -107,7 +109,8 @@
         android:layout_alignLeft="@+id/radioGroup2"
         android:layout_below="@+id/textView2"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:text="0.0" />
 
     <RadioGroup
         android:id="@+id/radioGroup3"
