@@ -2,24 +2,29 @@ package edu.gatech.seclass.unitconvertor;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
 public class MainActivity extends Activity {
 
-	DistanceActivity newDistance = new DistanceActivity();
-	AreaActivity newArea = new AreaActivity();
-	CurrencyActivity newCurrency = new CurrencyActivity();
-	
 	@Override
+	/*
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 	}
 
+	//Declare new instances of each activity
+	DistanceActivity newDistance = new DistanceActivity();
+	AreaActivity newArea = new AreaActivity();
+	CurrencyActivity newCurrency = new CurrencyActivity();
+	
+	/* Performs unit conversion when radio buttons are clicked in the 'Distance' portion of the app
+	 * @param current RadioButton view being clicked
+	 */
 	public void handleDistanceClick(View yourView){
 		boolean checked = ((RadioButton) yourView).isChecked();
 		EditText txt = (EditText) findViewById(R.id.editText1);
@@ -38,6 +43,9 @@ public class MainActivity extends Activity {
 	
 	}
 	
+	/* Performs unit conversion when radio buttons are clicked in the 'Area' portion of the app
+	 * @param current RadioButton view being clicked
+	 */
 	public void handleAreaClick(View yourView){
 		boolean checked = ((RadioButton) yourView).isChecked();
 		EditText txt = (EditText) findViewById(R.id.editText2);
@@ -55,7 +63,10 @@ public class MainActivity extends Activity {
 		
 		}
 	}
-
+	
+	/* Performs unit conversion when radio buttons are clicked in the 'Currency' portion of the app
+	 * @param current RadioButton view being clicked
+	 */
 	public void handleCurrencyClick(View yourView){
 		boolean checked = ((RadioButton) yourView).isChecked();
 		EditText txt = (EditText) findViewById(R.id.editText3);
