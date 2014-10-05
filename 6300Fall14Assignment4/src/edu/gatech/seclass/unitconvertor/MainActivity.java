@@ -2,6 +2,7 @@ package edu.gatech.seclass.unitconvertor;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -23,6 +24,7 @@ public class MainActivity extends Activity {
 	AreaActivity newArea = new AreaActivity();
 	CurrencyActivity newCurrency = new CurrencyActivity();
 	
+	//Initializes variables to be used with toast message
 	CharSequence text = "Please enter a number before hitting the button.";
 	int duration = Toast.LENGTH_SHORT;
 	
@@ -35,6 +37,7 @@ public class MainActivity extends Activity {
 		EditText txt = (EditText) findViewById(R.id.editText1);
 		if(txt.getText().toString().matches("") || txt.getText().toString().matches("\\.")){
 			Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+			toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,1);
 			toast.show();
 			txt.setText("");
 			return;
@@ -63,6 +66,7 @@ public class MainActivity extends Activity {
 		EditText txt = (EditText) findViewById(R.id.editText2);
 		if(txt.getText().toString().matches("") || txt.getText().toString().matches("\\.")){
 			Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+			toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,1);
 			toast.show();
 			txt.setText("");
 			return;
@@ -91,6 +95,7 @@ public class MainActivity extends Activity {
 		EditText txt = (EditText) findViewById(R.id.editText3);
 		if(txt.getText().toString().matches("") || txt.getText().toString().matches("\\.")){
 			Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+			toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,1);
 			toast.show();
 			txt.setText("");
 			return;
