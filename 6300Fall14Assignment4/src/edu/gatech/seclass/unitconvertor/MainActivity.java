@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -22,13 +23,23 @@ public class MainActivity extends Activity {
 	AreaActivity newArea = new AreaActivity();
 	CurrencyActivity newCurrency = new CurrencyActivity();
 	
+	CharSequence text = "Please enter a number before hitting the button.";
+	int duration = Toast.LENGTH_SHORT;
+	
 	/* Performs unit conversion when radio buttons are clicked in the 'Distance' portion of the app
 	 * @param current RadioButton view being clicked
 	 */
 	public void handleDistanceClick(View yourView){
+		double distance;
 		boolean checked = ((RadioButton) yourView).isChecked();
 		EditText txt = (EditText) findViewById(R.id.editText1);
-		double distance = Double.parseDouble(txt.getText().toString());
+		if(txt.getText().toString().matches("") || txt.getText().toString().matches("\\.")){
+			Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+			toast.show();
+			txt.setText("");
+			return;
+		}
+		else{distance = Double.parseDouble(txt.getText().toString());}
 		
 		 switch(yourView.getId()){
 			case R.id.radio0:
@@ -47,9 +58,16 @@ public class MainActivity extends Activity {
 	 * @param current RadioButton view being clicked
 	 */
 	public void handleAreaClick(View yourView){
+		double area;
 		boolean checked = ((RadioButton) yourView).isChecked();
 		EditText txt = (EditText) findViewById(R.id.editText2);
-		double area = Double.parseDouble(txt.getText().toString());
+		if(txt.getText().toString().matches("") || txt.getText().toString().matches("\\.")){
+			Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+			toast.show();
+			txt.setText("");
+			return;
+		}
+		else{area = Double.parseDouble(txt.getText().toString());}
 		
 		switch(yourView.getId()){
 			case R.id.radio3:
@@ -68,13 +86,22 @@ public class MainActivity extends Activity {
 	 * @param current RadioButton view being clicked
 	 */
 	public void handleCurrencyClick(View yourView){
+		double currency;
 		boolean checked = ((RadioButton) yourView).isChecked();
 		EditText txt = (EditText) findViewById(R.id.editText3);
-		double currency = Double.parseDouble(txt.getText().toString());
+		if(txt.getText().toString().matches("") || txt.getText().toString().matches("\\.")){
+			Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+			toast.show();
+			txt.setText("");
+			return;
+		}
+		else{currency = Double.parseDouble(txt.getText().toString());}
+		
 		
 		switch(yourView.getId()){
 			case R.id.radio5:
 				if(checked)
+					
 					txt.setText(newCurrency.euroToDollar(currency));
 					break;
 			case R.id.radio4:

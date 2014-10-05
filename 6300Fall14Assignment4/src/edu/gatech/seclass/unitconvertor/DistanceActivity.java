@@ -18,7 +18,7 @@ public class DistanceActivity extends Activity {
 	 * @param distance input by user
 	 * @return string of converted value to miles, rounded to two decimal places
 	 */
-	public String kmToMiles(double yourDistance){
+	public String kmToMiles(Double yourDistance){
 		double miles = yourDistance/1.609;
 		double milesRound = Math.round(miles * 100.0) / 100.0;
 		return String.valueOf(milesRound);
@@ -28,7 +28,7 @@ public class DistanceActivity extends Activity {
 	 * @param distance input by user
 	 * @return string of converted value to kilometers, rounded to two decimal places
 	 */
-	public String milesToKm(double yourDistance){
+	public String milesToKm(Double yourDistance){
 		double kilom = yourDistance*1.609;
 		double kilomRound = Math.round(kilom * 100.0) / 100.0;
 		return String.valueOf(kilomRound);

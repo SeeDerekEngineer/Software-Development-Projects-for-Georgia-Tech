@@ -19,7 +19,7 @@ public class CurrencyActivity extends Activity {
 	 * @return string of converted value to Dollars, rounded to two decimal places
 	 */
 	public String euroToDollar(double yourCurrency){
-		double dollar = yourCurrency*0.78842;
+		double dollar = yourCurrency*0.799;
 		double dollarRound = Math.round(dollar * 100.0) / 100.0;
 		return String.valueOf(dollarRound);
 	}
@@ -29,7 +29,7 @@ public class CurrencyActivity extends Activity {
 	 * @return string of converted value to Euros, rounded to two decimal places
 	 */
 	public String dollarToEuro(double yourCurrency){
-		double euro = yourCurrency/0.78842;
+		double euro = yourCurrency/0.799;
 		double euroRound = Math.round(euro * 100.0) / 100.0;
 		return String.valueOf(euroRound);
 	}
