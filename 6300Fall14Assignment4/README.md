@@ -10,5 +10,7 @@ the 'Kilometers' button).  Hitting the same button multiple times in a row will 
 If there is no number before a conversion button is pressed, the app will remind the user to enter a valid number prior to hitting a conversion button.
 
 Distance conversion (1 kilometer = 0.6214 miles) was obtained from http://www.metric-conversions.org/length/kilometers-to-miles.htm.
+
 Area conversion (1 square meter = 10.764 square feet) was obtained from http://www.metric-conversions.org/area/square-feet-to-square-meters.htm.
+
 Currency exchange rate (1 USD = 0.799 euros) was obtained from http://themoneyconverter.com/USD/EUR.aspx as of 10/5/14.
