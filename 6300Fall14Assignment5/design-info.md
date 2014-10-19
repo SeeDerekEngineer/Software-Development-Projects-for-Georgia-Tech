@@ -6,6 +6,8 @@ Each order and pre-order includes the total cost of the order, the calculated po
 For pre-orders, the date of pickup is also included and a subsequent boolean attribute 'pickUpDateAvailable' is used to 
 verify if that date has available slots for a pickup.  The requirement that the pre-order may be no farther than a week 
 in advance is assumed to be inherent in the calculated boolean attribute as well.  The software will include funcitonality to ensure if a pre-order is made than the appropriate slots are filled for reference to future pre-orders.
+The attribute 'openSlotsOnDate [*]' is an array of * days that includes in each element of the array the number of slots available for pre-orders.  The size of the array is questionable, since the max value it could have might be too large
+for practicality and memory purposes, so it is left open to discussion.
 
 VIPCustomer includes derived attributes.  Specifically, from the VIP Points calculated in total and per month, the candidacy for GOLD status and the qualification for the free item per month are determined.  These will then be used in the 'order' or 'preOrder' methods to provide the customer with their benefits.  It is assumed if a customer does not make use of their free item per month from being a GOLD member that item does not roll over and they lose their one free item for that month.  GOLD status eligibility and the free item earned from points are derived using the information available in the requirements.
 
