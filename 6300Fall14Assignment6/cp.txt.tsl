@@ -1,52 +1,72 @@
 
 Test Case 1  		<single>
-   Size :  Empty
+   Size :  empty
 
 
-Test Case 2  		<error>
-   Presence of a file corresponding to the name :  Not present
+Test Case 2  		<single>
+   Content :  special characters
 
 
-Test Case 3  		<error>
-   Presence of argument in utility :  Not an Integer
+Test Case 3  		<single>
+   Content :  some blank lines
 
 
 Test Case 4  		<error>
-   Value :  <0
+   Presence of a file corresponding to the name :  not present
 
 
 Test Case 5  		<single>
-   Value :  Longer than the file
+   Presence of argument in utility :  not Included
 
 
-Test Case 6  		<single>
-   Value :  maxint
+Test Case 6  		<error>
+   Presence of argument in utility :  not a positive integer
 
 
-Test Case 7  		(Key = 2.2.1.2.)
-   Size                                         :  Not empty
-   Presence of a file corresponding to the name :  Present
-   Presence of argument in utility              :  Not Included
-   Value                                        :  >0
-
-
-Test Case 8  		(Key = 2.2.1.4.)
-   Size                                         :  Not empty
-   Presence of a file corresponding to the name :  Present
-   Presence of argument in utility              :  Not Included
-   Value                                        :  10
-
-
-Test Case 9  		(Key = 2.2.2.1.)
-   Size                                         :  Not empty
-   Presence of a file corresponding to the name :  Present
-   Presence of argument in utility              :  Included
+Test Case 7  		(Key = 2.1.2.2.1.)
+   Size                                         :  not empty
+   Content                                      :  alphanumeric characters
+   Presence of a file corresponding to the name :  present
+   Presence of argument in utility              :  included
    Value                                        :  0
 
 
-Test Case 10 		(Key = 2.2.2.2.)
-   Size                                         :  Not empty
-   Presence of a file corresponding to the name :  Present
-   Presence of argument in utility              :  Included
+Test Case 8  		(Key = 2.1.2.2.2.)
+   Size                                         :  not empty
+   Content                                      :  alphanumeric characters
+   Presence of a file corresponding to the name :  present
+   Presence of argument in utility              :  included
    Value                                        :  >0
+
+
+Test Case 9  		(Key = 2.1.2.2.3.)
+   Size                                         :  not empty
+   Content                                      :  alphanumeric characters
+   Presence of a file corresponding to the name :  present
+   Presence of argument in utility              :  included
+   Value                                        :  10
+
+
+Test Case 10 		(Key = 2.1.2.2.4.)
+   Size                                         :  not empty
+   Content                                      :  alphanumeric characters
+   Presence of a file corresponding to the name :  present
+   Presence of argument in utility              :  included
+   Value                                        :  number of lines in file
+
+
+Test Case 11 		(Key = 2.1.2.2.5.)
+   Size                                         :  not empty
+   Content                                      :  alphanumeric characters
+   Presence of a file corresponding to the name :  present
+   Presence of argument in utility              :  included
+   Value                                        :  >number of lines in file
+
+
+Test Case 12 		(Key = 2.1.2.2.6.)
+   Size                                         :  not empty
+   Content                                      :  alphanumeric characters
+   Presence of a file corresponding to the name :  present
+   Presence of argument in utility              :  included
+   Value                                        :  maxint
 
