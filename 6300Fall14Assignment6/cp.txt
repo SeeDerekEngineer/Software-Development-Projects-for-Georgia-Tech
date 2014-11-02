@@ -1,0 +1,30 @@
+# File
+  
+  Size:
+	Empty.			[single]
+	Not empty.	    
+
+# Filename
+
+  Presence of a file corresponding to the name:
+
+	Not present.	        [error][property fileNotPresent]
+	Present.
+
+
+# Input numlines
+
+  Presence of argument in utility:
+	
+	Not Included.		[if !fileNotPresent]		
+	Included.		[if !fileNotPresent][property numlinesIncluded]
+	Not an Integer.		[error]
+
+  Value:
+	0.			[if numlinesIncluded && !fileNotPresent]
+	>0.			
+	<0.                     [error][if numlinesIncluded]
+	10.			[if !numlinesIncluded]
+	Longer than the file.	[single]
+	maxint.                 [single]
+  
