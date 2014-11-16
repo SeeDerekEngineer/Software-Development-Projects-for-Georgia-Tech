@@ -2,7 +2,6 @@ package edu.gatech.seclass.gradescalc;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.HashSet;
 
@@ -27,54 +26,34 @@ public class GradesDBTest {
 
     @Test
     public void testGetNumStudents() {
-        try {
-            int numStudents = db.getNumStudents();
-            assertEquals(14, numStudents);
-        } catch (Exception e) {
-            fail("Exception");
-        }
+        int numStudents = db.getNumStudents();
+        assertEquals(14, numStudents);
     }
 
     @Test
     public void testGetNumAssignments() {
-        try {
-            int numAssignments = db.getNumAssignments();
-            assertEquals(3, numAssignments);
-        } catch (Exception e) {
-            fail("Exception");
-        }
+        int numAssignments = db.getNumAssignments();
+        assertEquals(3, numAssignments);
     }
 
     @Test
     public void testGetNumProjects() {
         int numProjects;
-        try {
-            numProjects = db.getNumProjects();
-            assertEquals(3, numProjects);
-        } catch (Exception e) {
-            fail("Exception");
-        }
+        numProjects = db.getNumProjects();
+        assertEquals(3, numProjects);
     }
 
     @Test
     public void testGetStudents1() {
         HashSet<Student> students = null;
-        try {
-            students = db.getStudents();
-        } catch (Exception e) {
-            fail("Exception");
-        }
+        students = db.getStudents();
         assertEquals(14, students.size());
     }
 
     @Test
     public void testGetStudents2() {
         HashSet<Student> students = null;
-        try {
-            students = db.getStudents();
-        } catch (Exception e) {
-            fail("Exception");
-        }
+        students = db.getStudents();
         boolean found = false;
         for (Student s : students) {
             if (s.getName().compareTo("Cynthia Faast") == 0
@@ -89,32 +68,20 @@ public class GradesDBTest {
     @Test
     public void testGetStudentsByName1() {
         Student student = null;
-        try {
-            student = db.getStudentByName("Rastus Kight");
-        } catch (Exception e) {
-            fail("Exception");
-        }
+        student = db.getStudentByName("Rastus Kight");
         assertTrue(student.getGtid().compareTo("901234512") == 0);
     }
 
     @Test
     public void testGetStudentsByName2() {
         Student student = null;
-        try {
-            student = db.getStudentByName("Grier Nehling");
-        } catch (Exception e) {
-            fail("Exception");
-        }
+        student = db.getStudentByName("Grier Nehling");
         assertEquals(96, student.getAttendance());
     }
 
     @Test
     public void testGetStudentsByID() {
-        try {
-            Student student = db.getStudentByID("901234504");
-            assertTrue(student.getName().compareTo("Shevon Wise") == 0);
-        } catch (Exception e) {
-            fail("Exception");
-        }
+        Student student = db.getStudentByID("901234504");
+        assertTrue(student.getName().compareTo("Shevon Wise") == 0);
     }
 }
