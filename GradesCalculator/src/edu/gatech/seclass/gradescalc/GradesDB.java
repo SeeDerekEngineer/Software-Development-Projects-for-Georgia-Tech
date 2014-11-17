@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -90,8 +91,8 @@ public class GradesDB {
 	return colNum;
 }
 	public HashSet<Student> getStudents(){
-		HashSet<Student> students = new HashSet<Student>();
-		Student student = new Student();
+		HashSet<Student> myStudents = new HashSet<Student>();
+		
 		try {
 			fis = new FileInputStream(excel);
 		} catch (FileNotFoundException e) {
@@ -107,17 +108,17 @@ public class GradesDB {
 		}	      
 		
 		int rowNum = si.getLastRowNum();
-		for (int i = 1; i < rowNum; i++){
+		for (int i = 1; i < rowNum + 1; i++){
+			Student student = new Student();
 			XSSFRow row = si.getRow(i);
 			XSSFCell cell = row.getCell(0);
 			XSSFCell cell2 = row.getCell(1);
 			student.setName(cellToString(cell));
 			student.setGtid(cellToString(cell2));
-			students.add(student);
+			myStudents.add(student);
 			}
 		
-		
-		return students;
+		return myStudents;
 	}
 	
 	
