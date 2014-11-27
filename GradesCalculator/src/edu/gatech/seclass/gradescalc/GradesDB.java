@@ -201,6 +201,7 @@ public Student getStudentByID(String id){
 	
 	public static String cellToString (XSSFCell cell) {
 		
+		
 		int type = cell.getCellType();
 		String result;
 
@@ -213,10 +214,14 @@ public Student getStudentByID(String id){
 			case 1: //String Value in excel
 				result = cell.getStringCellValue();
 				break;
+			case 3:
+				result = "Blank";
+				break;
 			default:
 				throw new RuntimeException("Not an applicable cell content");
 		}
 		return result;
+		
 	} 
 
 	public static int cellToInt (XSSFCell cell) {
@@ -232,6 +237,9 @@ public Student getStudentByID(String id){
 				break;
 			case 1: //String Value in excel
 				throw new RuntimeException("Not a number");
+			case 3: //Blank cell
+				result = 0;
+				break;
 			default:
 				throw new RuntimeException("Not an applicable cell content");
 		}
@@ -263,7 +271,7 @@ public Student getStudentByID(String id){
 		for (int i = 1; i < rowNum + 1; i++){
 			XSSFRow row = t.getRow(i);
 			for (int j = 1; j < colNum + 1; j++){
-				XSSFCell cell = row.getCell(j);
+				XSSFCell cell = row.getCell(j,t.getRow(i).CREATE_NULL_AS_BLANK);
 				if(cellToString(cell).equals(nameOfStudent)){
 					teamNumber = i;
 				}
@@ -309,48 +317,46 @@ public Student getStudentByID(String id){
 	
 public int getAverageProjectsGrade(Student yourStudent){
 		
-		String nameOfStudent=yourStudent.getName();
-		double totalProjectPoints = 0;
-		try {
-			fis = new FileInputStream(excel);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			wb = new XSSFWorkbook(fis);	
-			ic = wb.getSheet("IndividualContribs");
-			tg = wb.getSheet("TeamGrades");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	      
-		
-		int cRowNum = ic.getLastRowNum();
-		int colNum = ic.getRow(0).getLastCellNum()-1;
-		int[] projectGrades = new int[colNum];
-		int[] studentContributions = new int[colNum];
-		for (int i = 0; i < cRowNum; i++){
-			XSSFRow row = ic.getRow(i);
-			XSSFCell cell = row.getCell(0);
-			if(cellToString(cell).equals(nameOfStudent)){
-				for (int j = 1; j < colNum + 1; j++){
-					XSSFCell cell2 = row.getCell(j);
-					studentContributions[j-1] = cellToInt(cell2);
-				}
-			}	
-		}
-			XSSFRow row = tg.getRow(getTeamNumber(yourStudent));
+	String nameOfStudent=yourStudent.getName();
+	double totalProjectPoints = 0;
+	try {
+		fis = new FileInputStream(excel);
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	try {
+		wb = new XSSFWorkbook(fis);	
+		ic = wb.getSheet("IndividualContribs");
+		tg = wb.getSheet("TeamGrades");
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}	      
+
+	int cRowNum = ic.getLastRowNum();
+	int colNum = ic.getRow(0).getLastCellNum()-1;
+	int[] projectGrades = new int[colNum];
+	int[] studentContributions = new int[colNum];
+	for (int i = 0; i < cRowNum; i++){
+		XSSFRow row = ic.getRow(i);
+		XSSFCell cell = row.getCell(0,ic.getRow(i).CREATE_NULL_AS_BLANK);
+		if(cellToString(cell).equals(nameOfStudent)){
 			for (int j = 1; j < colNum + 1; j++){
-					XSSFCell cell2 = row.getCell(j);
-					projectGrades[j-1] = cellToInt(cell2);
-				}
-		for (int k = 0; k < colNum; k++){
-			totalProjectPoints = totalProjectPoints + studentContributions[k]*projectGrades[k];
-		}
-		return (int) (totalProjectPoints/colNum);
+				XSSFCell cell2 = row.getCell(j);
+				studentContributions[j-1] = cellToInt(cell2);  //Student contributions are technically percentages so a factor of 100 will be removed before returning answer
+			}
+		}	
+	}
+	XSSFRow row = tg.getRow(getTeamNumber(yourStudent));
+	for (int j = 1; j < colNum + 1; j++){
+				XSSFCell cell2 = row.getCell(j);
+				projectGrades[j-1] = cellToInt(cell2);
+	}
+	for (int k = 0; k < colNum; k++){
+		totalProjectPoints = totalProjectPoints + studentContributions[k]*projectGrades[k];
+	}
+	return (int) (totalProjectPoints/colNum/100);  //Division by 100 takes contributions as percentages into account
 	}
 }
-
-
 
