@@ -14,6 +14,12 @@ public class Student {
 	private int[] projectContribs;
 
 
+	public Student(String yourName, String yourGTid, GradesDB yourDB) {
+		this.name = yourName;
+		this.Gtid = yourGTid;
+		
+	}
+	
 	public void setName(String newName){name = newName;} 
 	public String getName(){ return name;}
 	public void setGtid(String newGtid){Gtid = newGtid;}
