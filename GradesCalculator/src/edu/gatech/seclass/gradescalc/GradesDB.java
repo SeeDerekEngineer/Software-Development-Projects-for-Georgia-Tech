@@ -3,12 +3,14 @@ package edu.gatech.seclass.gradescalc;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -18,6 +20,7 @@ public class GradesDB {
 
 	private File excel;
 	private FileInputStream fis;
+	private FileOutputStream fos;
 	private XSSFWorkbook wb;
 	private XSSFSheet si;
 	private XSSFSheet t;
@@ -358,5 +361,69 @@ public int getAverageProjectsGrade(Student yourStudent){
 	}
 	return (int) (totalProjectPoints/colNum/100);  //Division by 100 takes contributions as percentages into account
 	}
+
+
+	public void addAssignment(String assignmentName){
+		
+		try {
+			fis = new FileInputStream(excel);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			wb = new XSSFWorkbook(fis);	
+			ig = wb.getSheet("IndividualGrades");	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	      
+		
+		
+		int colNum = ig.getRow(0).getLastCellNum();
+		XSSFCell cell = ig.getRow(0).createCell(colNum);
+		cell.setCellValue(assignmentName);
+		Workbook wb = new XSSFWorkbook();
+		try {
+			fos = new FileOutputStream(excel);
+			try {
+				wb.write(fos);
+				fos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		                    
+		
+		for (int i = 0; i < ig.getRow(0).getLastCellNum(); i++){
+			XSSFCell cell2 = ig.getRow(0).getCell(i,ig.getRow(0).CREATE_NULL_AS_BLANK);
+			System.out.println(cellToString(cell2));
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
