@@ -104,11 +104,11 @@ public class GradesDBTest {
     @Test
     public void testAddAssignment() {
         db.addAssignment("ASSIGNMENT: black-box testing");
-        //db = new GradesDB(GRADES_DB);
-        //assertEquals(4, db.getNumAssignments());
+        db = new GradesDB(GRADES_DB);
+        assertEquals(4, db.getNumAssignments());
         db.addAssignment("ASSIGNMENT: white-box testing");
-        //db = new GradesDB(GRADES_DB);
-        //assertEquals(5, db.getNumAssignments());
+        db = new GradesDB(GRADES_DB);
+        assertEquals(5, db.getNumAssignments());
     }
 
     @Test

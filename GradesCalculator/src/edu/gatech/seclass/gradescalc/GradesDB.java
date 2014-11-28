@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -383,7 +384,7 @@ public int getAverageProjectsGrade(Student yourStudent){
 		int colNum = ig.getRow(0).getLastCellNum();
 		XSSFCell cell = ig.getRow(0).createCell(colNum);
 		cell.setCellValue(assignmentName);
-		Workbook wb = new XSSFWorkbook();
+
 		try {
 			fos = new FileOutputStream(excel);
 			try {
@@ -397,30 +398,124 @@ public int getAverageProjectsGrade(Student yourStudent){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public void addGradesForAssignment(String assignmentName, HashMap<Student,Integer> grades){
+
+		try {
+			fis = new FileInputStream(excel);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			wb = new XSSFWorkbook(fis);	
+			ig = wb.getSheet("IndividualGrades");	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	      
 		
+		int rowNum = ig.getLastRowNum();
+		int colNum = ig.getRow(0).getLastCellNum()-1;
+		int assignmentIndex = -1;
 		
-		                    
+		for (int i = 0; i< colNum + 1; i++){
+			XSSFCell cell = ig.getRow(0).getCell(i,ig.getRow(0).CREATE_NULL_AS_BLANK);
+			if(cellToString(cell).equals(assignmentName)){
+				assignmentIndex = i;
+				break;
+			}
+		}
+		if (assignmentIndex == -1){throw new RuntimeException ("Assignment not found");}
 		
-		for (int i = 0; i < ig.getRow(0).getLastCellNum(); i++){
-			XSSFCell cell2 = ig.getRow(0).getCell(i,ig.getRow(0).CREATE_NULL_AS_BLANK);
-			System.out.println(cellToString(cell2));
+		for(Student key : grades.keySet()){
+			for (int j = 1; j < rowNum; j++){
+			XSSFRow row = ig.getRow(j);
+			XSSFCell cell = row.getCell(0);
+			if(cellToString(cell).equals(key.getName())){
+				XSSFCell cell2 = ig.getRow(j).createCell(colNum);
+				cell2.setCellValue(grades.get(key));
+			}
+		}
+		}
+		
+
+		try {
+			fos = new FileOutputStream(excel);
+			try {
+				wb.write(fos);
+				fos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 
+	public void addIndividualContributions(String projectName, HashMap<Student,Integer> contribs){
 
+		try {
+			fis = new FileInputStream(excel);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			wb = new XSSFWorkbook(fis);	
+			ig = wb.getSheet("IndividualContribs");	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	      
+		
+		int rowNum = ig.getLastRowNum();
+		int colNum = ig.getRow(0).getLastCellNum();
+		int assignmentIndex = -1;
+		
+		for (int i = 0; i< colNum; i++){
+			XSSFCell cell = ig.getRow(0).getCell(i,ig.getRow(0).CREATE_NULL_AS_BLANK);
+			if(cellToString(cell).equals(projectName)){
+				assignmentIndex = i;
+				break;
+			}
+		}
+		if (assignmentIndex == -1){throw new RuntimeException ("Project not found");}
+		
+		for(Student key : contribs.keySet()){
+			System.out.println(key.getName());
+			System.out.println(contribs.get(key));
+			for (int j = 1; j < rowNum; j++){
+			XSSFRow row = ig.getRow(j);
+			XSSFCell cell = row.getCell(0,ig.getRow(j).CREATE_NULL_AS_BLANK);
+			if(cellToString(cell).equals(key.getName())){
+				XSSFCell cell2 = ig.getRow(j).createCell(assignmentIndex);
+				cell2.setCellValue(contribs.get(key));
+			}
+		}
+		}
+		
 
+		try {
+			fos = new FileOutputStream(excel);
+			try {
+				wb.write(fos);
+				fos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-
-
-
-
-
-
-
-
-
-
+	
 
 
 
