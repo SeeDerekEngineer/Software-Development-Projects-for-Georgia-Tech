@@ -206,9 +206,13 @@ public class GradesDBTest {
     	db.addStudent("Marky Mark","901234515","mm@gatech.edu",2,1,3,"N");
         db = new GradesDB(GRADES_DB);
         assertEquals(15, db.getNumStudents());
+        Student student = db.getStudentByID("901234515");
+        assertTrue(student.getName().compareTo("Marky Mark") == 0);
         db.addStudent("Funky Bunch","901234516","fb@gatech.edu",1,2,3,"Y");
         db = new GradesDB(GRADES_DB);
         assertEquals(16, db.getNumStudents());
+        Student student = db.getStudentByID("901234516");
+        assertTrue(student.getName().compareTo("Funky Bunch") == 0);
     
     }
 
