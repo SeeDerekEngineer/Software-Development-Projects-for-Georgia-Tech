@@ -487,16 +487,14 @@ public int getAverageProjectsGrade(Student yourStudent){
 		if (assignmentIndex == -1){throw new RuntimeException ("Project not found");}
 		
 		for(Student key : contribs.keySet()){
-			System.out.println(key.getName());
-			System.out.println(contribs.get(key));
 			for (int j = 1; j < rowNum; j++){
-			XSSFRow row = ig.getRow(j);
-			XSSFCell cell = row.getCell(0,ig.getRow(j).CREATE_NULL_AS_BLANK);
-			if(cellToString(cell).equals(key.getName())){
-				XSSFCell cell2 = ig.getRow(j).createCell(assignmentIndex);
-				cell2.setCellValue(contribs.get(key));
+				XSSFRow row = ig.getRow(j);
+				XSSFCell cell = row.getCell(0,ig.getRow(j).CREATE_NULL_AS_BLANK);
+				if(cellToString(cell).equals(key.getName())){
+					XSSFCell cell2 = ig.getRow(j).createCell(assignmentIndex);
+					cell2.setCellValue(contribs.get(key));
+				}
 			}
-		}
 		}
 		
 
