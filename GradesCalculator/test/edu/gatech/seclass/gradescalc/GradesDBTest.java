@@ -196,7 +196,7 @@ public class GradesDBTest {
         db.addGradesForProject(projectName, grades);
         db = new GradesDB(GRADES_DB);
         assertEquals(87, db.getAverageProjectsGrade(student1), 1);
-        assertEquals(41, db.getAverageProjectsGrade(student2), 1);
+        assertEquals(83, db.getAverageProjectsGrade(student2), 1);
         assertEquals(89, db.getAverageProjectsGrade(student3), 1);
     }
 

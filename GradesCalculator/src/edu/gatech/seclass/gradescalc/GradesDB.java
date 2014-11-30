@@ -288,7 +288,7 @@ public Student getStudentByID(String id){
 		
 		String nameOfStudent=yourStudent.getName();
 		double totalAssignmentPoints = 0;
-		int average = 0;
+		double average = 0;
 		try {
 			fis = new FileInputStream(excel);
 		} catch (FileNotFoundException e) {
@@ -313,16 +313,20 @@ public Student getStudentByID(String id){
 					XSSFCell cell2 = row.getCell(j);
 					totalAssignmentPoints = totalAssignmentPoints + cellToInt(cell2);
 				}
-				average = (int) (totalAssignmentPoints/colNum);
+				average = Math.round((totalAssignmentPoints/colNum));
 			}	
 		}
-		return average;
+		return (int) average;
 	}
 	
 public int getAverageProjectsGrade(Student yourStudent){
 		
 	String nameOfStudent=yourStudent.getName();
 	double totalProjectPoints = 0;
+	int projNum = 0;
+	int[] projectGrades = null;
+	int[] studentContributions = null;
+	
 	try {
 		fis = new FileInputStream(excel);
 	} catch (FileNotFoundException e) {
@@ -340,27 +344,35 @@ public int getAverageProjectsGrade(Student yourStudent){
 
 	int cRowNum = ic.getLastRowNum();
 	int colNum = ic.getRow(0).getLastCellNum()-1;
-	int[] projectGrades = new int[colNum];
-	int[] studentContributions = new int[colNum];
 	for (int i = 0; i < cRowNum; i++){
 		XSSFRow row = ic.getRow(i);
 		XSSFCell cell = row.getCell(0,ic.getRow(i).CREATE_NULL_AS_BLANK);
 		if(cellToString(cell).equals(nameOfStudent)){
-			for (int j = 1; j < colNum + 1; j++){
-				XSSFCell cell2 = row.getCell(j);
+			for (int m = 1; m < colNum + 1; m++){
+				if(cellToString(row.getCell(m,ic.getRow(i).CREATE_NULL_AS_BLANK)) != "Blank"){
+					projNum++;
+				}
+			}
+			studentContributions = new int[projNum];
+			projectGrades = new int[projNum];
+			for (int j = 1; j < projNum + 1; j++){
+				XSSFCell cell2 = row.getCell(j,ic.getRow(i).CREATE_NULL_AS_BLANK);
 				studentContributions[j-1] = cellToInt(cell2);  //Student contributions are technically percentages so a factor of 100 will be removed before returning answer
 			}
+			break;
 		}	
 	}
-	XSSFRow row = tg.getRow(getTeamNumber(yourStudent));
-	for (int j = 1; j < colNum + 1; j++){
-				XSSFCell cell2 = row.getCell(j);
+	int teamRow = getTeamNumber(yourStudent);
+	XSSFRow row = tg.getRow(teamRow);
+	for (int j = 1; j < projNum + 1; j++){
+				XSSFCell cell2 = row.getCell(j,tg.getRow(teamRow).CREATE_NULL_AS_BLANK);
 				projectGrades[j-1] = cellToInt(cell2);
 	}
-	for (int k = 0; k < colNum; k++){
+	for (int k = 0; k < projNum; k++){
 		totalProjectPoints = totalProjectPoints + studentContributions[k]*projectGrades[k];
 	}
-	return (int) (totalProjectPoints/colNum/100);  //Division by 100 takes contributions as percentages into account
+	System.out.println(projNum);
+	return (int) Math.round(totalProjectPoints/projNum/100);  //Division by 100 takes contributions as percentages into account
 	}
 
 
