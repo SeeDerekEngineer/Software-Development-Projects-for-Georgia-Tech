@@ -32,8 +32,9 @@ public class GradesDB {
 	static final String GRADES_DB = "DB" + File.separator
             + "GradesDatabase6300.xlsx";
 
-	
-	public GradesDB(String gradesDb) {excel = new File (gradesDb);}
+	public void loadSpreadsheet(String gradesDb){
+		excel = new File (gradesDb);
+	}
 	
 	public int getNumAssignments(){
 	
@@ -116,7 +117,7 @@ public class GradesDB {
 		
 		int rowNum = si.getLastRowNum();
 		for (int i = 1; i < rowNum + 1; i++){
-			Student student = new Student(" "," ", new GradesDB(GRADES_DB));
+			Student student = new Student(" "," ", new GradesDB());
 			XSSFRow row = si.getRow(i);
 			XSSFCell cell = row.getCell(0);
 			XSSFCell cell2 = row.getCell(1);
@@ -131,7 +132,7 @@ public class GradesDB {
 	
 	public Student getStudentByName(String name){
 		
-		Student studentByName = new Student(" ", " ", new GradesDB(GRADES_DB));
+		Student studentByName = new Student(" ", " ", new GradesDB());
 		
 		try {
 			fis = new FileInputStream(excel);
@@ -174,7 +175,7 @@ public class GradesDB {
 	
 public Student getStudentByID(String id){
 		
-		Student studentById = new Student(" ", " ", new GradesDB(GRADES_DB));
+		Student studentById = new Student(" ", " ", new GradesDB());
 		
 		try {
 			fis = new FileInputStream(excel);
@@ -526,9 +527,38 @@ public int getAverageProjectsGrade(Student yourStudent){
 	}
 
 	
+	//THIS IS THE START OF THE CODE NECESSARY FOR DELIVERABLE 3//
 
-
-
+	public int getAttendance(Student yourStudent){
+		
+		String nameOfStudent=yourStudent.getName();
+		int attendance = 0;
+		try {
+			fis = new FileInputStream(excel);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			wb = new XSSFWorkbook(fis);	
+			a = wb.getSheet("Attendance");	
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	      
+		
+		int rowNum = a.getLastRowNum();
+		for (int i = 0; i < rowNum; i++){
+			XSSFRow row = a.getRow(i);
+			XSSFCell cell = row.getCell(0);
+			if(cellToString(cell).equals(nameOfStudent)){				
+					XSSFCell cell2 = row.getCell(1);
+					attendance = cellToInt(cell2);
+			}	
+		}
+		return attendance;
+	}
+	
 
 }
 
