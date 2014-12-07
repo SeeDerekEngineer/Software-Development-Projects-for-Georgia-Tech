@@ -10,6 +10,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -31,6 +35,7 @@ public class GradesDB {
 	private XSSFSheet tg;
 	static final String GRADES_DB = "DB" + File.separator
             + "GradesDatabase6300.xlsx";
+	private String formula = "AT * 0.2 + AS * 0.4 + PR * 0.4";
 
 	public void loadSpreadsheet(String gradesDb){
 		excel = new File (gradesDb);
@@ -123,7 +128,9 @@ public class GradesDB {
 			XSSFCell cell2 = row.getCell(1);
 			student.setName(cellToString(cell));
 			student.setGtid(cellToString(cell2));
+			//Student student = new Student(cellToString(cell),cellToString(cell2), new GradesDB());
 			myStudents.add(student);
+			
 			}
 		
 		return myStudents;
@@ -133,7 +140,7 @@ public class GradesDB {
 	public Student getStudentByName(String name){
 		
 		Student studentByName = new Student(" ", " ", new GradesDB());
-		
+		studentByName.setName(name);
 		try {
 			fis = new FileInputStream(excel);
 		} catch (FileNotFoundException e) {
@@ -155,8 +162,9 @@ public class GradesDB {
 			XSSFCell cell = row.getCell(0);
 			if(cellToString(cell).equals(name)){
 				XSSFCell cell2 = row.getCell(1);
-				
+				XSSFCell cell3 = row.getCell(2);
 				studentByName.setGtid(cellToString(cell2));
+				studentByName.setEmail(cellToString(cell3));
 			}
 		}
 		int rowNum2 = a.getLastRowNum();
@@ -166,10 +174,15 @@ public class GradesDB {
 			if(cellToString(acell).equals(name)){
 				XSSFCell acell2 = arow.getCell(1);
 				
-				studentByName.setAttendance(cellToInt(acell2));
+				studentByName.setAttendance(Math.round(cellToInt(acell2)));
 				
 			}
 		}
+		studentByName.setTeam(getTeamNumber(studentByName));
+		studentByName.setAverageAssignmentsGrade(getAverageAssignmentsGrade(studentByName));
+		studentByName.setAverageProjectsGrade(getAverageProjectsGrade(studentByName));
+		studentByName.setOverallGrade(getOverallGrade(studentByName));
+		
 		return studentByName;
 	}
 	
@@ -238,7 +251,7 @@ public Student getStudentByID(String id){
 		
 			case 0 : //numerical value in excel
 				double result1 = cell.getNumericCellValue();
-				result = (int) result1;
+				result = (int) Math.round(result1);
 				break;
 			case 1: //String Value in excel
 				throw new RuntimeException("Not a number");
@@ -282,6 +295,7 @@ public Student getStudentByID(String id){
 				}
 			}	
 		}
+		yourStudent.setTeam(teamNumber);
 		return teamNumber;
 	}
 	
@@ -317,6 +331,7 @@ public Student getStudentByID(String id){
 				average = Math.round((totalAssignmentPoints/colNum));
 			}	
 		}
+		yourStudent.setAverageAssignmentsGrade((int) average);
 		return (int) average;
 	}
 	
@@ -373,6 +388,7 @@ public int getAverageProjectsGrade(Student yourStudent){
 		totalProjectPoints = totalProjectPoints + studentContributions[k]*projectGrades[k];
 	}
 	System.out.println(projNum);
+	yourStudent.setAverageProjectsGrade((int) Math.round(totalProjectPoints/projNum/100));
 	return (int) Math.round(totalProjectPoints/projNum/100);  //Division by 100 takes contributions as percentages into account
 	}
 
@@ -529,7 +545,7 @@ public int getAverageProjectsGrade(Student yourStudent){
 	
 	//THIS IS THE START OF THE CODE NECESSARY FOR DELIVERABLE 3//
 
-	public int getAttendance(Student yourStudent){
+	/*public int getAttendance(Student yourStudent){
 		
 		String nameOfStudent=yourStudent.getName();
 		int attendance = 0;
@@ -557,8 +573,33 @@ public int getAverageProjectsGrade(Student yourStudent){
 			}	
 		}
 		return attendance;
+	}*/
+	
+	public void setFormula(String newFormula){
+		formula = newFormula;
 	}
 	
-
+	public String getFormula(){
+		return formula;
+	}
+	
+	public int getOverallGrade(Student student) throws GradeFormulaException {
+		
+		double oGrade = 0;
+		getFormula();
+        ScriptEngineManager factory = new ScriptEngineManager();
+        ScriptEngine engine = factory.getEngineByName("JavaScript");
+        engine.put("AT", student.getAttendance());
+        engine.put("AS", student.getAverageAssignmentsGrade());
+        engine.put("PR", student.getAverageProjectsGrade());
+        try {
+			oGrade = (double) (engine.eval(formula));
+			
+		} catch (ScriptException e) {
+			// TODO Auto-generated catch block
+			throw new GradeFormulaException("Incorrect Formula");
+		}
+    	return (int) Math.round(oGrade);
+	}
 }
 
